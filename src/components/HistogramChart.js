@@ -31,7 +31,6 @@ export default function HistogramChart({ data }) {
         setChartWidth(700);
         setChartHeight(500);
       }
-      console.log('here')
     };
 
     handleResize();
