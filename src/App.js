@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import fetchApi from './api';
+import { calculateWordFrequencies } from './utils/processData';
+import HistogramChart from './components/HistogramChart';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetchApi();
+      const data =  calculateWordFrequencies(response)
+      setData(data.slice(0, 20));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Word Frequency Histogram</h1>
+      <button 
+        className="fetch-button"
+        onClick={fetchData}
+        disabled={loading}
+      >
+        {loading ? 'Fetching...' : 'Fetch Data'}
+      </button>
+      {
+        data ? <HistogramChart data={data} /> : null
+      }
     </div>
   );
 }
