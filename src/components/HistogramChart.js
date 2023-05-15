@@ -13,7 +13,7 @@ export default function HistogramChart({ data }) {
   const xAxisField = "letter";
   const yAxisField = "frequency";
   const label ={
-    x: 'ALPHABETS',
+    x: 'WORDS',
     y: 'FREQUENCY',
   }
   const [chartWidth, setChartWidth] = useState(700);
