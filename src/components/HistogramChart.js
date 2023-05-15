@@ -14,7 +14,7 @@ export default function HistogramChart({ data }) {
   const yAxisField = "frequency";
   const label ={
     x: 'ALPHABETS',
-    y: 'FRQUENCY',
+    y: 'FREQUENCY',
   }
   const [chartWidth, setChartWidth] = useState(700);
   const [chartHeight, setChartHeight] = useState(500);
@@ -57,7 +57,7 @@ export default function HistogramChart({ data }) {
           label={{ value: label.y, angle: -90, dx: -18 }}
           margin={{ left: 10 }}
         />
-        <Tooltip />
+        <Tooltip color='#82ca9d'/>
         <Legend wrapperStyle={{paddingTop : 20}}/>
         <Bar dataKey={yAxisField} fill="#8884d8" />
       </BarChart>

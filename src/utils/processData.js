@@ -23,7 +23,7 @@ const objToArr = (obj) => {
 };
 
 export const calculateWordFrequencies = (data) => {
-  const words = data.split('');
+  const words = data.split(/\s+/);
   let wordFrequencies = words.reduce((acc, word) => {
     if (acc[word]) {
       acc[word] += 1;
@@ -34,5 +34,28 @@ export const calculateWordFrequencies = (data) => {
   }, {});
   const filteredData = filterAlphabet(wordFrequencies);
   const arr = objToArr(filteredData);
-  return arr;
+  const finalArr = arr.slice(0, 20);
+  return finalArr;
+};
+
+
+export const downloadData = (data) => () => {
+  const csvData = data.map((item) => {
+    return `${item.letter},${item.frequency}`;
+  });
+  const csv = csvData.join('\n');
+  
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.style.display = 'none';
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'data.csv');
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(url);
 };
