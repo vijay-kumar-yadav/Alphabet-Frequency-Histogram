@@ -32,12 +32,16 @@ export default function HistogramChart({ data }) {
         setChartHeight(500);
       }
     };
-
+  
     handleResize();
-
+  
+    window.addEventListener('resize', handleResize);
+  
     return () => {
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [setChartWidth, setChartHeight]);
+  
   
   return (
     <div className="chart-container">
